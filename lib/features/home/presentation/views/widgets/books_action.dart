@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/shared_widgets/custom_button.dart';
 
 class BooksAction extends StatelessWidget {
-  const BooksAction({super.key});
+  const BooksAction({super.key, required this.book});
+  final BookEntity book;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,10 +29,10 @@ class BooksAction extends StatelessWidget {
           Expanded(
             child: CustomButton(
               onPressed: () {
-                launchCustomURL(context, "book.previewLink");
+                launchCustomURL(context, book.previewLink!);
               },
               backgroundColor: Color(0xffEF8262),
-              text: "getText()",
+              text: getText(book),
               textColor: Colors.white,
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(16.r),
