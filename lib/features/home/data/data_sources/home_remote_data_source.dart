@@ -8,6 +8,7 @@ import 'package:clean_arch_bookly_app/features/home/domain/entities/book_entity.
 abstract class HomeRemoteDataSource {
   Future<List<BookEntity>> fetchFeaturedBooks({int pageNumber = 0});
   Future<List<BookEntity>> fetchNewestBooks({int pageNumber = 0});
+  Future<List<BookEntity>> fetchSimilarBooks({required String category});
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
@@ -32,6 +33,16 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     );
     List<BookEntity> books = getBooksList(data);
     saveBooksData(books, kNewestBox);
+    return books;
+  }
+
+  @override
+  Future<List<BookEntity>> fetchSimilarBooks({required String category}) async {
+    var data = await apiService.get(
+      endPoint: ApiConstants.similarBooksEndpoint,
+    );
+    List<BookEntity> books = getBooksList(data);
+    saveBooksData(books, kSimilarBox);
     return books;
   }
 
