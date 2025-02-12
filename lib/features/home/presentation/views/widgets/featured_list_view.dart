@@ -1,4 +1,6 @@
 import 'package:clean_arch_bookly_app/core/helpers/assets.dart';
+import 'package:clean_arch_bookly_app/core/helpers/extentions.dart';
+import 'package:clean_arch_bookly_app/core/routing/routes_names.dart';
 import 'package:clean_arch_bookly_app/core/shared_widgets/book_image_conrainer.dart';
 import 'package:clean_arch_bookly_app/core/shared_widgets/infinite_scroll_mixin.dart';
 import 'package:clean_arch_bookly_app/features/home/domain/entities/book_entity.dart';
@@ -35,8 +37,16 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView>
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: BookImageContainer(
-              image: widget.books[index].image ?? AssetsData.bookImage,
+            child: GestureDetector(
+              onTap: () {
+                context.pushNamed(
+                  Routes.bookDetailsView,
+                  arguments: widget.books[index],
+                );
+              },
+              child: BookImageContainer(
+                image: widget.books[index].image ?? AssetsData.bookImage,
+              ),
             ),
           );
         },

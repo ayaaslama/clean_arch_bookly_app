@@ -18,6 +18,8 @@ class BookEntity {
   final String? publishedDate;
   @HiveField(6)
   final String? previewLink;
+  @HiveField(7)
+  final String? categories;
 
   BookEntity({
     required this.bookId,
@@ -27,5 +29,6 @@ class BookEntity {
     this.pageCount,
     this.publishedDate,
     this.previewLink,
+    this.categories,
   });
 }
