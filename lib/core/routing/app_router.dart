@@ -1,10 +1,13 @@
 import 'package:clean_arch_bookly_app/core/di/dependency_injection.dart';
 import 'package:clean_arch_bookly_app/core/routing/routes_names.dart';
 import 'package:clean_arch_bookly_app/features/home/data/repos/home_repo_impl.dart';
+import 'package:clean_arch_bookly_app/features/home/domain/entities/book_entity.dart';
 import 'package:clean_arch_bookly_app/features/home/domain/use_cases/fetch_featured_books_use_case.dart';
 import 'package:clean_arch_bookly_app/features/home/domain/use_cases/fetch_newest_books_use_case.dart';
+import 'package:clean_arch_bookly_app/features/home/domain/use_cases/fetch_similar_books_use_case.dart';
 import 'package:clean_arch_bookly_app/features/home/presentation/manger/featured_books_cubit/featured_books_cubit.dart';
 import 'package:clean_arch_bookly_app/features/home/presentation/manger/newset_books_cubit/newest_books_cubit.dart';
+import 'package:clean_arch_bookly_app/features/home/presentation/manger/similar_books_cubit/similar_books_cubit.dart';
 import 'package:clean_arch_bookly_app/features/home/presentation/views/book_details_view.dart';
 import 'package:clean_arch_bookly_app/features/home/presentation/views/home_view.dart';
 import 'package:clean_arch_bookly_app/features/search/presentation/views/search_view.dart';
@@ -43,7 +46,18 @@ class AppRouter {
         );
 
       case Routes.bookDetailsView:
-        return MaterialPageRoute(builder: (_) => const BookDetailsView());
+        if (args is BookEntity) {
+          return MaterialPageRoute(
+            builder:
+                (_) => BlocProvider(
+                  create:
+                      (context) => SimilarBooksCubit(
+                        FetchSimilarBooksUseCase(getIt.get<HomeRepoImpl>()),
+                      ),
+                  child: BookDetailsView(book: args),
+                ),
+          );
+        }
 
       case Routes.searchView:
         return MaterialPageRoute(builder: (_) => const SearchView());
