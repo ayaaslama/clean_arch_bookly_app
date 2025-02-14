@@ -31,14 +31,12 @@ class _NewestBooksListViewBlocBuilderState
         if (state is SimilarBooksSuccess) {
           return SimilarBooksListview(books: books);
         } else if (state is SimilarBooksFailure) {
-          return SliverToBoxAdapter(child: buildErrorWidget(state.errMessage));
+          return buildErrorWidget(state.errMessage);
         } else {
-          return SliverToBoxAdapter(
-            child: Column(
-              children: List.generate(10, (index) {
-                return const CustomBookImageLoadingIndicator();
-              }),
-            ),
+          return Column(
+            children: List.generate(10, (index) {
+              return const CustomBookImageLoadingIndicator();
+            }),
           );
         }
       },

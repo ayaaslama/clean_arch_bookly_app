@@ -29,7 +29,7 @@ class BooksAction extends StatelessWidget {
           Expanded(
             child: CustomButton(
               onPressed: () {
-                launchCustomURL(context, book.previewLink!);
+                launchCustomURL(context, book.previewLink ?? '');
               },
               backgroundColor: Color(0xffEF8262),
               text: getText(book),

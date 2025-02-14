@@ -1,3 +1,4 @@
+import 'package:clean_arch_bookly_app/core/helpers/assets.dart';
 import 'package:clean_arch_bookly_app/core/helpers/spacing.dart';
 import 'package:clean_arch_bookly_app/core/shared_widgets/book_image_conrainer.dart';
 import 'package:clean_arch_bookly_app/core/theming/text_styles.dart';
@@ -17,7 +18,7 @@ class BookDetailsSection extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.2),
-          child: BookImageContainer(image: book.image!),
+          child: BookImageContainer(image: book.image ?? AssetsData.bookImage),
         ),
         verticalSpace(40),
         Text(
@@ -31,7 +32,7 @@ class BookDetailsSection extends StatelessWidget {
         Opacity(
           opacity: 0.7,
           child: Text(
-            book.authorName!,
+            book.authorName ?? 'no name',
             style: AppTextStyles.textStyle18SemiBold.copyWith(
               fontWeight: FontWeight.w500,
             ),
@@ -40,7 +41,7 @@ class BookDetailsSection extends StatelessWidget {
         verticalSpace(18),
         BookPageCount(
           mainAxisAlignment: MainAxisAlignment.center,
-          pageCount: book.pageCount!,
+          pageCount: book.pageCount ?? 0,
         ),
         verticalSpace(37),
         BooksAction(book: book),

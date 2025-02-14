@@ -26,8 +26,16 @@ class SearchResultListView extends StatelessWidget {
           );
         } else if (state is SearchFailure) {
           return SliverToBoxAdapter(child: buildErrorWidget(state.errMessage));
+        } else if (state is SearchLoading) {
+          return SliverToBoxAdapter(
+            child: Column(
+              children: List.generate(10, (index) {
+                return const BookListViewItemLoadingIndicator();
+              }),
+            ),
+          );
         } else {
-          return SliverToBoxAdapter(child: BookListViewItemLoadingIndicator());
+          return SliverToBoxAdapter(child: SizedBox());
         }
       },
     );

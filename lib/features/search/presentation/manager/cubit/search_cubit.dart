@@ -1,17 +1,20 @@
 import 'package:bloc/bloc.dart';
 import 'package:clean_arch_bookly_app/features/home/domain/entities/book_entity.dart';
-import 'package:clean_arch_bookly_app/features/search/domain/repos/search_repo.dart';
+import 'package:clean_arch_bookly_app/features/search/domain/use_cases/fetch_search_books_use_case.dart';
 
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit(this.searchRepo) : super(SearchInitial());
-  SearchRepo searchRepo;
+  SearchCubit(this.fetchSearchBooksUseCase) : super(SearchInitial());
+  final FetchSearchBooksUseCase fetchSearchBooksUseCase;
 
   Future<void> fetchSearchResults({required String query}) async {
     emit(SearchLoading());
-
-    var booksResult = await searchRepo.searchBooks(query: query);
+    if (query.isEmpty) {
+      emit(SearchInitial());
+      return;
+    }
+    var booksResult = await fetchSearchBooksUseCase.call(query);
     booksResult.fold(
       (failure) {
         emit(SearchFailure(failure.errMessage));
