@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomSearchTextField extends StatelessWidget {
-  const CustomSearchTextField({super.key});
-
+  const CustomSearchTextField({
+    super.key,
+    this.onChanged,
+    required this.controller,
+  });
+  final void Function(String)? onChanged;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: 'Search',
         suffixIcon: IconButton(

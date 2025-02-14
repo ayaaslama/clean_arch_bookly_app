@@ -1,3 +1,4 @@
+import 'package:clean_arch_bookly_app/core/helpers/assets.dart';
 import 'package:clean_arch_bookly_app/core/helpers/extentions.dart';
 import 'package:clean_arch_bookly_app/core/routing/routes_names.dart';
 import 'package:clean_arch_bookly_app/core/shared_widgets/book_image_conrainer.dart';
@@ -24,7 +25,9 @@ class SimilarBooksListview extends StatelessWidget {
                   arguments: books[index],
                 );
               },
-              child: BookImageContainer(image: books[index].image!),
+              child: BookImageContainer(
+                image: books[index].image ?? AssetsData.bookImage,
+              ),
             ),
           );
         },
